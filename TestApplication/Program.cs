@@ -2054,6 +2054,7 @@ namespace TestApplication
             {
                 using (ManagedClient64 client = new ManagedClient64())
                 {
+                    //lol
                     //Чтения данных для подключения с файла
                     IniFile INI = new IniFile("config.ini");
                     string сonnectionString = "host=" + INI.ReadINI("IRBIS", "host") + ";port=" + INI.ReadINI("IRBIS", "port") +
