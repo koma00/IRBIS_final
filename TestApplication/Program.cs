@@ -460,7 +460,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -543,18 +542,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "3" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
                     }
                 }
@@ -584,10 +571,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -736,7 +719,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -833,18 +815,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null )
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "4" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
                     }
                 }
@@ -874,10 +844,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -1027,7 +993,6 @@ namespace TestApplication
 
                 string books = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int l = 0;
                 int k = 0;
 
@@ -1070,18 +1035,6 @@ namespace TestApplication
                                 "book[" + i + "][link]=" + "" + "&" +
                                 "book[" + i + "][link_name]=" + "" + "&";
                         }
-                        RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                        foreach (var bookBranch_record in bookBranch_records)
-                        {
-                            if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                            {
-                                bookBranch +=
-                                "attach[" + k + "][category_id]=" + "5" + "&" +
-                                "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                k++;
-                            }
-                        }
                     }
                 }
                 /*
@@ -1093,10 +1046,6 @@ namespace TestApplication
 
                 MyWebRequest createBook = new MyWebRequest(domain + "catalog/book/createOrUpdate", "POST", books);
                 Console.WriteLine("createBook: " + createBook.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -1355,7 +1304,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -1467,18 +1415,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "6" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
                     }
                 }
@@ -1508,10 +1444,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -1612,7 +1544,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -1699,18 +1630,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "7" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
 
                     }
@@ -1740,10 +1659,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -1865,7 +1780,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -1952,18 +1866,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "8" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
 
                     }
@@ -1993,10 +1895,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
@@ -2030,7 +1928,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -2117,18 +2014,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "8" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
 
                     }
@@ -2158,10 +2043,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
