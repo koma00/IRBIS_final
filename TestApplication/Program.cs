@@ -11,48 +11,6 @@ namespace TestApplication
     {
         private static string domain;
 
-        private static string Branch (string branch_in)
-        {
-            string branch_out = "1";
-            branch_in.Trim();
-            switch (branch_in)
-            {
-                case "АІЛ":
-                    branch_out = "5"; 
-                    break;
-                case "АНЛ":
-                    branch_out = "4"; 
-                    break;
-                case "АУЛ":
-                    branch_out = "2"; 
-                    break;
-                case "АХЛ":
-                    branch_out = "6"; 
-                    break;
-                case "ВБІТ":
-                    branch_out = "7"; 
-                    break;
-                case "ДИР":
-                    branch_out = "7"; 
-                    break;
-                case "ДБВ":
-                    branch_out = "7"; 
-                    break;
-                case "РЦВ":
-                    branch_out = "7"; 
-                    break;
-                case "ЧЗНЛ":
-                    branch_out = "4"; 
-                    break;
-                case "ЧЗУЛ":
-                    branch_out = "3"; 
-                    break;
-                case "ВІВ":
-                    branch_out = "1";
-                    break;
-            }
-            return branch_out;
-        }
         private static void RDR(ManagedClient64 client)
         {
             // Делаем переключение на базу RDR
@@ -290,7 +248,6 @@ namespace TestApplication
                 string keyword = "";
                 string bookKeyword = "";
                 string bookDelete = "";
-                string bookBranch = "";
                 int j = 0;
                 int k = 0;
                 int l = 0;
@@ -402,18 +359,6 @@ namespace TestApplication
                                     "attach[" + k + "][value]=" + keyword_record.GetFieldText() + "&";
                                 k++;
                             }
-                            RecordField[] bookBranch_records = record.Fields.GetField("910").ToArray();
-                            foreach (var bookBranch_record in bookBranch_records)
-                            {
-                                if (bookBranch_record.GetFirstSubFieldText('D') != null)
-                                {
-                                    bookBranch +=
-                                    "attach[" + k + "][category_id]=" + "2" + "&" +
-                                    "attach[" + k + "][mfn]=" + record.Mfn + "&" +
-                                    "attach[" + k + "][branch_id]=" + Branch(bookBranch_record.GetFirstSubFieldText('D')) + "&";
-                                    k++;
-                                }
-                            }
                         }
                     }
                 }
@@ -443,10 +388,6 @@ namespace TestApplication
 
                 MyWebRequest attachBookKeyword = new MyWebRequest(domain + "catalog/attach/bookKeyword", "POST", bookKeyword);
                 Console.WriteLine("attachBookKeyword: " + attachBookKeyword.GetResponse());
-                Console.WriteLine(new string('-', 60));
-
-                MyWebRequest attachBookBranch = new MyWebRequest(domain + "catalog/attach/bookBranch", "POST", bookBranch);
-                Console.WriteLine("attachBookBranch: " + attachBookBranch.GetResponse());
                 Console.WriteLine(new string('-', 60));
                 Console.WriteLine(new string('-', 60));
             }
