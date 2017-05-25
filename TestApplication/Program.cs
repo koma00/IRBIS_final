@@ -10,25 +10,64 @@ namespace TestApplication
     class Program
     {
         private static string domain;
+        private static string сonnectionString;
+        private static int count_reconnect;
+
+        private static int chunkLength = 25;
+        private static int count_reconnect_max = 40;
+        private static bool connect_fl = false;
+
+        private static void database_reconnect(ManagedClient64 client, string Database)
+        {
+            if (connect_fl)
+            {
+                //Отключение от ИРБИС
+                Console.WriteLine("Irbris disconnect");
+                client.Disconnect();
+                Console.WriteLine("Irbris disconnected");
+                Console.WriteLine(new string('-', 60));
+            }
+
+            //Подключение к ИРБИС
+            Console.WriteLine("Irbris connecting");
+            client.ParseConnectionString(сonnectionString);
+            client.Connect();
+            Console.WriteLine("Irbris connected");
+            Console.WriteLine(new string('-', 60));
+
+            // Делаем переключение на базу Database
+            client.PushDatabase(Database);
+            Console.WriteLine("PushDatabase " + Database);
+            Console.WriteLine(new string('-', 60));
+
+            //Очищаем счетчик
+            count_reconnect = 0;
+            
+            //Устанавливаем флаг
+            connect_fl = true;
+        }
 
         private static void RDR(ManagedClient64 client)
         {
             // Делаем переключение на базу RDR
-            client.PushDatabase("RDR");
-
-            Console.WriteLine("PushDatabase RDR");
+            database_reconnect(client, "RDR");
 
             /*
              * Разбитие массива данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "RDR");
+                }
+
                 /*
                  * Подготовка данных перед записью
                  */
@@ -223,21 +262,24 @@ namespace TestApplication
         private static void BOOKS(ManagedClient64 client)
         {
             // Делаем переключение на базу BOOKS
-            client.PushDatabase("BOOKS");
-
-            Console.WriteLine("PushDatabase BOOKS");
+            database_reconnect(client, "BOOKS");
 
             /*
              * Разбитие массива данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "BOOKS");
+                }
+
                 /*
                  * Подготовка данных перед записью
                  */
@@ -435,21 +477,24 @@ namespace TestApplication
         private static void MV(ManagedClient64 client)
         {
             // Делаем переключение на базу MV
-            client.PushDatabase("MV");
-
-            Console.WriteLine("PushDatabase MV");
+            database_reconnect(client, "MV");
 
             /*
              * Разбитие массива данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "MV");
+                }
+
                 /*
                  * Подготовка данных перед записью
                  */
@@ -694,21 +739,24 @@ namespace TestApplication
         private static void DB2(ManagedClient64 client)
         {
             // Делаем переключение на базу DB2
-            client.PushDatabase("DB2");
-
-            Console.WriteLine("PushDatabase DB2");
+            database_reconnect(client, "DB2");
 
             /*
              * Разбитие массива данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "DB2");
+                }
+
                 /*
                     * Подготовка данных перед записью
                     */
@@ -973,20 +1021,23 @@ namespace TestApplication
         private static void PVUD(ManagedClient64 client)
         {
             // Делаем переключение на базу PVUD
-            client.PushDatabase("PVUD");
-
-            Console.WriteLine("PushDatabase PVUD");
+            database_reconnect(client, "PVUD");
 
             /*
              * Разбитие данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "PVUD");
+                }
+
                 /*
                 * Подготовка данных перед записью
                 */
@@ -1279,21 +1330,24 @@ namespace TestApplication
         private static void DB4(ManagedClient64 client)
         {
             // Делаем переключение на базу DB4
-            client.PushDatabase("DB4");
-
-            Console.WriteLine("PushDatabase DB4");
+            database_reconnect(client, "DB4");
 
             /*
              * Разбитие массива данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "DB4");
+                }
+
                 /*
                  * Подготовка данных перед записью
                  */
@@ -1519,21 +1573,24 @@ namespace TestApplication
         private static void RARIT(ManagedClient64 client)
         {
             // Делаем переключение на базу RARIT
-            client.PushDatabase("RARIT");
-
-            Console.WriteLine("PushDatabase RARIT");
+            database_reconnect(client, "RARIT");
 
             /*
              * Разбитие данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "RARIT");
+                }
+
                 /*
                 * Подготовка данных перед записью
                 */
@@ -1755,21 +1812,24 @@ namespace TestApplication
         private static void PB(ManagedClient64 client)
         {
             // Делаем переключение на базу PB
-            client.PushDatabase("PB");
-
-            Console.WriteLine("PushDatabase PB");
+            database_reconnect(client, "PB");
 
             /*
              * Разбитие данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "PB");
+                }
+
                 /*
                 * Подготовка данных перед записью
                 */
@@ -1903,21 +1963,23 @@ namespace TestApplication
         private static void ERI(ManagedClient64 client)
         {
             // Делаем переключение на базу ERI
-            client.PushDatabase("PB");
-
-            Console.WriteLine("PushDatabase ERI");
+            database_reconnect(client, "ERI");
 
             /*
              * Разбитие данных на чанки, и отправка в БД
              */
 
             int maxMfn = client.GetMaxMfn() - 1;
-            int chunkLength = 25;
             int mfn = 0;
             Console.WriteLine("Total records: " + maxMfn);
 
             for (int loop = 0; loop < (int)Math.Ceiling((double)maxMfn / chunkLength); loop++)
             {
+                count_reconnect++;
+                if (count_reconnect >= count_reconnect_max)
+                {
+                    database_reconnect(client, "ERI");
+                }
                 /*
                 * Подготовка данных перед записью
                 */
@@ -2056,16 +2118,9 @@ namespace TestApplication
                 {
                     //Чтения данных для подключения с файла
                     IniFile INI = new IniFile("config.ini");
-                    string сonnectionString = "host=" + INI.ReadINI("IRBIS", "host") + ";port=" + INI.ReadINI("IRBIS", "port") +
+                    сonnectionString = "host=" + INI.ReadINI("IRBIS", "host") + ";port=" + INI.ReadINI("IRBIS", "port") +
                                               ";user=" + INI.ReadINI("IRBIS", "user") + ";password=" + INI.ReadINI("IRBIS", "password") + ";";
                     domain = INI.ReadINI("WEB", "domain");
-
-                    //Подключение к ИРБИС
-                    Console.WriteLine("Database connecting");
-                    client.ParseConnectionString(сonnectionString);
-                    client.Connect();
-                    Console.WriteLine("Database connected");
-                    Console.WriteLine(new string('-', 60));
 
                     //Выгрузка БД
                     RDR(client);
